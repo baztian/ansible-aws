@@ -47,6 +47,7 @@
     path: /etc/bash_completion.d/aws_completer
     regexp: '^complete -C "/opt/awscli/.*/aws_completer" aws$'
     line: complete -C "/opt/awscli/aws/dist/aws_completer" aws
+    mode: 644
 - name: Download session-manager-plugin {{ awscli_session_manager_plugin_version }}
   get_url:
     url: https://s3.amazonaws.com/session-manager-downloads/plugin/{{ awscli_session_manager_plugin_version }}/ubuntu_64bit/session-manager-plugin.deb
@@ -72,13 +73,14 @@
   file:
     path: /opt/aws-vault-{{ aws_vault_version }}
     state: directory
+    mode: 755
   tags: aws_vault
 - name: Download aws_vault {{ aws_vault_version }}
   get_url:
     url: https://github.com/99designs/aws-vault/releases/download/v{{ aws_vault_version }}/aws-vault-linux-amd64
     checksum: sha256:{{ aws_vault_sha256 }}
     dest: /opt/aws-vault-{{ aws_vault_version }}/aws-vault
-    mode: "755"
+    mode: 755
   when: not aws_vault_directory.stat.exists
   tags: aws_vault
 - name: Symlink default aws-vault version to aws-vault {{ aws_vault_version }}
@@ -114,19 +116,21 @@
   file:
     path: /opt/saml2aws-{{ saml2aws_version }}
     state: directory
+    mode: 755
   tags: saml2aws
 - name: Download saml2aws {{ saml2aws_version }}
   get_url:
     url: https://github.com/Versent/saml2aws/releases/download/v{{ saml2aws_version }}/saml2aws_{{ saml2aws_version }}_linux_amd64.tar.gz
     checksum: sha512:{{ saml2aws_sha512 }}
     dest: /tmp/saml2aws-{{ saml2aws_version }}.tar.gz
-    mode: "755"
+    mode: 755
   when: not saml2aws_directory.stat.exists
   tags: saml2aws
 - name: Create saml2aws {{ saml2aws_version }} directory
   file:
     path: /opt/saml2aws-{{ saml2aws_version }}
     state: directory
+    mode: 755
   tags: saml2aws
 - name: Unarchive saml2aws {{ saml2aws_version }}
   unarchive:
@@ -167,13 +171,14 @@
     url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
     checksum: sha256:{{ terraform_sha256 }}
     dest: /tmp/terraform-{{ terraform_version }}.zip
-    mode: "755"
+    mode: 755
   when: not terraform_directory.stat.exists
   tags: terraform
 - name: Create terraform {{ terraform_version }} directory
   file:
     path: /opt/terraform-{{ terraform_version }}
     state: directory
+    mode: 755
   tags: terraform
 - name: Unarchive terraform {{ terraform_version }}
   unarchive:
