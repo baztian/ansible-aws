@@ -10,4 +10,4 @@ galaxy_info:
     - xenial
   galaxy_tags:
     - aws
-dependencies: [ baztian.python, baztian.pip_venv ]
+dependencies: [ baztian.python ]
