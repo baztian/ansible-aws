@@ -1,10 +1,10 @@
 ---
 - name: Update apt cache.
   apt: update_cache=yes cache_valid_time=3600
-- name: Install dirmngr in order to be able to install the apt signing key
+- name: Install unzip in order to be able to install some archives
   apt:
     pkg:
-      - dirmngr
+      - unzip
 - name: Check if awscli {{ awscli_version }} already installed
   stat:
     path: /opt/awscli-{{ awscli_version }}/awscli
