@@ -48,7 +48,7 @@
     path: /etc/bash_completion.d/aws_completer
     regexp: '^complete -C "/opt/awscli/.*/aws_completer" aws$'
     line: complete -C "/opt/awscli/aws/dist/aws_completer" aws
-    mode: 644
+    mode: 0644
 - name: Download session-manager-plugin {{ awscli_session_manager_plugin_version }}
   get_url:
     url: https://s3.amazonaws.com/session-manager-downloads/plugin/{{ awscli_session_manager_plugin_version }}/ubuntu_64bit/session-manager-plugin.deb
