@@ -218,6 +218,5 @@
   vars:
       pkg: aws-sam-cli
       version: "{{ aws_sam_cli_version }}"
-      py_version: 3.6
       bin: sam
   tags: aws_sam_cli
