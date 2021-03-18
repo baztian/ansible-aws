@@ -162,50 +162,27 @@
     - AWS_PROFILE
   become: no
   tags: saml2aws
-- name: Check if terraform {{ terraform_version }} already installed
-  stat:
-    path: /opt/terraform-{{ terraform_version }}/terraform
-  register: terraform_directory
+- name: Install terraform via asdf
+  include_role:
+    name: baztian.asdf
+  vars:
+    asdf_plugins:
+      - name: terraform
+        versions: "{{ terraform_versions }}"
+        global: "{{ terraform_default_version }}"
   tags: terraform
-- name: Download terraform {{ terraform_version }}
-  get_url:
-    url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
-    checksum: sha256:{{ terraform_sha256 }}
-    dest: /tmp/terraform-{{ terraform_version }}.zip
-    mode: 0755
-  when: not terraform_directory.stat.exists
+- name: Create terraform12 runner
+  copy:
+     src: terraform12
+     dest: /usr/local/bin/terraform12
+     mode: 0755
   tags: terraform
-- name: Create terraform {{ terraform_version }} directory
-  file:
-    path: /opt/terraform-{{ terraform_version }}
-    state: directory
-    mode: 0755
+- name: Create terraform13 runner
+  copy:
+     src: terraform13
+     dest: /usr/local/bin/terraform13
+     mode: 0755
   tags: terraform
-- name: Unarchive terraform {{ terraform_version }}
-  unarchive:
-    src: /tmp/terraform-{{ terraform_version }}.zip
-    dest: /opt/terraform-{{ terraform_version }}
-    remote_src: yes
-  when: not terraform_directory.stat.exists
-  tags: terraform
-- name: Symlink default terraform version to terraform {{ terraform_version }}
-  file:
-    src: terraform-{{ terraform_version }}
-    dest: /opt/terraform
-    state: link
-  tags: terraform
-- name: Symlink terraform binary
-  file:
-    src: /opt/terraform/terraform
-    dest: /usr/local/bin/terraform
-    state: link
-  tags: terraform,no_github
-- name: Symlink terraform binary as terraform12
-  file:
-    src: /opt/terraform-{{ terraform_version }}/terraform
-    dest: /usr/local/bin/terraform12
-    state: link
-  tags: terraform,no_github
 - name: Determine whether python 3.6 for aws-sam-cli required specifically
   set_fact:
     py_version: "{{ '3.6' if ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'

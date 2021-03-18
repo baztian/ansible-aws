@@ -1,0 +1,3 @@
+#!/bin/sh
+export ASDF_TERRAFORM_VERSION=0.12.26
+terraform "$@"
