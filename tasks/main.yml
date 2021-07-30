@@ -127,12 +127,6 @@
     mode: 0755
   when: not saml2aws_directory.stat.exists
   tags: saml2aws
-- name: Create saml2aws {{ saml2aws_version }} directory
-  file:
-    path: /opt/saml2aws-{{ saml2aws_version }}
-    state: directory
-    mode: 0755
-  tags: saml2aws
 - name: Unarchive saml2aws {{ saml2aws_version }}
   unarchive:
     src: /tmp/saml2aws-{{ saml2aws_version }}.tar.gz
@@ -197,3 +191,55 @@
       version: "{{ aws_sam_cli_version }}"
       bin: sam
   tags: aws_sam_cli
+- name: Check if NoSQL Workbench {{ nosql_workbench_version }} already installed
+  stat:
+    path: /opt/NoSQL%20Workbench-{{ nosql_workbench_version }}.AppImage
+  register: nosql_workbench_directory
+  tags: nosql_workbench
+- name: Install fuse in order to be able to run NoSQL Workbench
+  apt:
+    pkg:
+      - fuse
+  tags: nosql_workbench
+- name: Download NoSQL Workbench {{ nosql_workbench_version }}
+  get_url:
+    url: https://s3.amazonaws.com/nosql-workbench/NoSQL%20Workbench-linux-x86_64-{{ nosql_workbench_version }}.AppImage
+    checksum: sha512:{{ nosql_workbench_sha512 }}
+    dest: /opt/NoSQL%20Workbench-{{ nosql_workbench_version }}.AppImage
+    mode: 0755
+  when: not nosql_workbench_directory.stat.exists
+  tags: nosql_workbench
+- name: Symlink default NoSQL Workbench to version {{ nosql_workbench_version }}
+  file:
+    src: NoSQL%20Workbench-{{ nosql_workbench_version }}.AppImage
+    dest: /opt/NoSQL%20Workbench.AppImage
+    state: link
+  tags: nosql_workbench
+- name: Check if NoSQL Workbench icon already installed
+  stat:
+    path: /usr/local/share/icons/hicolor/512x512/apps/nosql-workbench.png
+  register: nosql_workbench_icon
+  tags: nosql_workbench
+- name: Create icon directory
+  file:
+    path: /usr/local/share/icons/hicolor/512x512/apps
+    state: directory
+    mode: 0755
+- name: Download NoSQL Workbench icon
+  get_url:
+    url: https://pbs.twimg.com/media/ESNEfDaWkAM9xPm?format=png
+    dest: /usr/local/share/icons/hicolor/512x512/apps/nosql-workbench.png
+  when: not nosql_workbench_icon.stat.exists
+  tags: nosql_workbench
+- name: Create launcher directory
+  file:
+    path: /usr/local/share/applications
+    state: directory
+    mode: 0755
+  tags: nosql_workbench
+- name: Copy NoSQL Workbench desktop launcher
+  copy:
+    src: nosql-workbench.desktop
+    dest: /usr/local/share/applications/nosql-workbench.desktop
+    mode: 0644
+  tags: nosql_workbench

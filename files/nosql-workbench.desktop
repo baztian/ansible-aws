@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=NoSQL Workbench
+Comment=AWS NoSQL Workbench
+Exec=/opt/NoSQL-Workbench.AppImage
+Icon=joplin
+StartupWMClass=NoSQL-Workbench
+Type=Application
+Categories=Development;
