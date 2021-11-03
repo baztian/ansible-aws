@@ -182,12 +182,14 @@
     path: ~/.terraform.d/plugin-cache
     state: directory
     mode: 0755
+  become: no
 - name: Configure Provider Plugin Cache directory
   lineinfile:
     path: ~/.terraformrc
     regexp: '^\s*plugin_cache_dir\s*='
     line: 'plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"'
     mode: 0644
+  become: no
 - name: Determine whether python 3.6 for aws-sam-cli required specifically
   set_fact:
     py_version: "{{ '3.6' if ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'
