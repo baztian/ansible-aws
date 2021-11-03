@@ -186,6 +186,7 @@
 - name: Configure Provider Plugin Cache directory
   lineinfile:
     path: ~/.terraformrc
+    create: yes
     regexp: '^\s*plugin_cache_dir\s*='
     line: 'plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"'
     mode: 0644
