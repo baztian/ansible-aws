@@ -156,6 +156,12 @@
     - AWS_PROFILE
   become: no
   tags: saml2aws
+- name: Install assume-role.sh
+  get_url:
+    url: '{{ assume_role_url }}'
+    dest: /usr/local/bin/assume-role.sh
+    mode: 0755
+    force: yes
 - name: Install terraform via asdf
   include_role:
     name: baztian.asdf
