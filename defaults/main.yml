@@ -19,6 +19,8 @@ terraform_versions:
   - 0.14.2
 # https://github.com/aws/aws-sam-cli/releases
 aws_sam_cli_version: 1.35.0
+# https://pypi.org/project/awslogs/#history
+awslogs_version: 0.14.0
 # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html
 nosql_workbench_version: 3.2.0
 nosql_workbench_sha512: 051c39e47bb9ba61879c0e55410af296533339c491256cb31fecf13e39474a050bd6dad1ba34e460ba8a366062083790a0cce804611de1ac15f9153efb6e2351
