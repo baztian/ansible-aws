@@ -211,6 +211,14 @@
       version: "{{ aws_sam_cli_version }}"
       bin: sam
   tags: aws_sam_cli
+- name: Install aws-encryption-sdk-cli
+  include_role:
+    name: baztian.pip_venv
+  vars:
+      pkg: aws-encryption-sdk-cli
+      version: "{{ aws_encryption_sdk_cli_version }}"
+      bin: aws-encryption-cli
+  tags: aws_encryption_sdk_cli
 - name: Install awslogs tool
   include_role:
     name: baztian.pip_venv
