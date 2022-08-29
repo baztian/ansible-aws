@@ -318,6 +318,7 @@
   get_url:
     url: https://pbs.twimg.com/media/ESNEfDaWkAM9xPm?format=png
     dest: /usr/local/share/icons/hicolor/512x512/apps/nosql-workbench.png
+    mode: 0644
   when: not nosql_workbench_icon.stat.exists
   tags: nosql_workbench
 - name: Create launcher directory
