@@ -280,6 +280,26 @@
       pkg: awslogs
       version: "{{ awslogs_version }}"
   tags: awslogs
+- name: Install send-sqs.sh
+  get_url:
+    url: "{{ send_sqs_url }}/raw/send-sqs.sh"
+    dest: /usr/local/bin/send-sqs.sh
+    mode: 0755
+    force: yes
+  tags: send_sqs
+- name: Make sure /etc/bash_completion.d exists
+  file:
+    path: /etc/bash_completion.d/
+    state: directory
+    mode: 0755
+  tags: send_sqs
+- name: Setup send-sqs bash completion
+  get_url:
+    url: "{{ send_sqs_url }}/raw/send-sqs-completion.sh"
+    dest: /etc/bash_completion.d/send-sqs
+    mode: 0644
+    force: yes
+  tags: send_sqs
 - name: Check if NoSQL Workbench {{ nosql_workbench_version }} already installed
   stat:
     path: /opt/NoSQL%20Workbench-{{ nosql_workbench_version }}.AppImage
