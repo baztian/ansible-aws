@@ -295,7 +295,7 @@
   tags: send_sqs
 - name: Setup send-sqs bash completion
   get_url:
-    url: "{{ send_sqs_url }}/raw/send-sqs-completion.sh"
+    url: "{{ send_sqs_url }}/raw/send-sqs-completion.bash"
     dest: /etc/bash_completion.d/send-sqs
     mode: 0644
     force: yes
