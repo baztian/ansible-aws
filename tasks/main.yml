@@ -223,17 +223,17 @@
     remote_src: yes
   when: not aws_nuke_directory.stat.exists
   tags: aws_nuke
-- name: Copy binary from aws-nuke-v{{ aws_nuke_version }}-darwin-amd64 to aws-nuke
+- name: Copy binary from aws-nuke-v{{ aws_nuke_version }}-linux-amd64 to aws-nuke
   copy:
     remote_src: True
-    src: /opt/aws-nuke-{{ aws_nuke_version }}/aws-nuke-v{{ aws_nuke_version }}-darwin-amd64
+    src: /opt/aws-nuke-{{ aws_nuke_version }}/aws-nuke-v{{ aws_nuke_version }}-linux-amd64
     dest: /opt/aws-nuke-{{ aws_nuke_version }}/aws-nuke
     mode: 0755
   when: not aws_nuke_directory.stat.exists
   tags: aws_nuke
-- name: Delete binary aws-nuke-v{{ aws_nuke_version }}-darwin-amd64
+- name: Delete binary aws-nuke-v{{ aws_nuke_version }}-linux-amd64
   file:
-    path: /opt/aws-nuke-{{ aws_nuke_version }}/aws-nuke-v{{ aws_nuke_version }}-darwin-amd64
+    path: /opt/aws-nuke-{{ aws_nuke_version }}/aws-nuke-v{{ aws_nuke_version }}-linux-amd64
     state: absent
   when: not aws_nuke_directory.stat.exists
   tags: aws_nuke
