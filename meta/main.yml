@@ -11,4 +11,4 @@ galaxy_info:
   galaxy_tags:
     - aws
 dependencies:
-- baztian.python
+- name: baztian.python
