@@ -9,8 +9,8 @@ awscli_session_manager_plugin_sha256: d4d578a64210165ec434d658212304a968acb2efa4
 aws_vault_version: 6.2.0
 aws_vault_sha256: 1d87a634cd22de9c9cf0cbbbd710651622414ecc556e9c91c9acdc5f07329c6e
 aws_vault_assume_role_ttl: 1h
-saml2aws_version: 2.26.1
-saml2aws_sha512: 15f1ad5dda74865639a64790630ac604cbce446c2d331b5ae8f65a0435101f1eab24ad96e736aae5c9e074ad3252947f80dba267ec792649c2c1cfab5326d2fc
+saml2aws_version: 2.36.4
+saml2aws_sha256: e14d95126b48fc72d8dbd72ac215aa23b57eaf80f3f6d72ec75ada32bc1d695c
 assume_role_url: https://gist.githubusercontent.com/baztian/f98ec19be5593c881748029996c86237/raw/assume-role.sh
 terraform_default_version: 0.12.26
 terraform_versions:
