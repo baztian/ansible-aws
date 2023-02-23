@@ -124,7 +124,7 @@
 - name: Download saml2aws {{ saml2aws_version }}
   get_url:
     url: https://github.com/Versent/saml2aws/releases/download/v{{ saml2aws_version }}/saml2aws_{{ saml2aws_version }}_linux_amd64.tar.gz
-    checksum: sha512:{{ saml2aws_sha512 }}
+    checksum: sha256:{{ saml2aws_sha256 }}
     dest: /tmp/saml2aws-{{ saml2aws_version }}.tar.gz
     mode: 0755
   when: not saml2aws_directory.stat.exists
