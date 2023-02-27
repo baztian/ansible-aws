@@ -280,10 +280,10 @@
       pkg: awslogs
       version: "{{ awslogs_version }}"
   tags: awslogs
-- name: Install send-sqs.sh
+- name: Install sqs-send.sh
   get_url:
-    url: "{{ send_sqs_url }}/raw/send-sqs.sh"
-    dest: /usr/local/bin/send-sqs.sh
+    url: "{{ sqs_send_url }}/raw/sqs-send.sh"
+    dest: /usr/local/bin/sqs-send.sh
     mode: 0755
     force: yes
   tags: send_sqs
@@ -293,10 +293,10 @@
     state: directory
     mode: 0755
   tags: send_sqs
-- name: Setup send-sqs bash completion
+- name: Setup sqs-send bash completion
   get_url:
-    url: "{{ send_sqs_url }}/raw/send-sqs-completion.bash"
-    dest: /etc/bash_completion.d/send-sqs
+    url: "{{ sqs_send_url }}/raw/sqs-send-completion.bash"
+    dest: /etc/bash_completion.d/sqs-send
     mode: 0644
     force: yes
   tags: send_sqs
