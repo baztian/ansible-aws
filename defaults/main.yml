@@ -29,4 +29,4 @@ awslogs_version: 0.14.0
 # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/workbench.settingup.html
 nosql_workbench_version: 3.2.0
 nosql_workbench_sha512: 051c39e47bb9ba61879c0e55410af296533339c491256cb31fecf13e39474a050bd6dad1ba34e460ba8a366062083790a0cce804611de1ac15f9153efb6e2351
-send_sqs_url: https://gist.githubusercontent.com/baztian/0b5b189f35601b1c4b00e0bf0d94a205
+sqs_send_url: https://gist.githubusercontent.com/baztian/0b5b189f35601b1c4b00e0bf0d94a205
