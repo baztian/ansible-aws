@@ -264,6 +264,9 @@
       pkg: aws-sam-cli
       version: "{{ aws_sam_cli_version }}"
       bin: sam
+      extra_pkgs:
+        # work around https://github.com/aws/aws-sam-cli/issues/3661
+        - markupsafe==2.0.1
   tags: aws_sam_cli
 - name: Install aws-encryption-sdk-cli
   include_role:
