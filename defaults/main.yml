@@ -21,7 +21,7 @@ terraform_versions:
 aws_nuke_version: 2.18.1
 aws_nuke_sha256: 71cf9ba385a3518ddbcd619c86a13f947dfa406eed266dedb33a25df046b16c6
 # https://github.com/aws/aws-sam-cli/releases
-aws_sam_cli_version: 1.35.0
+aws_sam_cli_version: 1.78.0
 # https://github.com/aws/aws-encryption-sdk-cli/releases
 aws_encryption_sdk_cli_version: 4.1.0
 # https://pypi.org/project/awslogs/#history
