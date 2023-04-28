@@ -7,7 +7,11 @@ galaxy_info:
   platforms:
   - name: Ubuntu
     versions:
-    - xenial
+    - bionic
+    - focal
+  - name: Debian
+    versions:
+    - buster
   galaxy_tags:
     - aws
 dependencies:
