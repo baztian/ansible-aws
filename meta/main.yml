@@ -3,11 +3,15 @@ galaxy_info:
   role_name: aws
   description: Role for installing various tools related to AWS (Amazon Web Services)
   license: MIT
-  min_ansible_version: 2.0
+  min_ansible_version: '2.0'
   platforms:
   - name: Ubuntu
     versions:
-    - xenial
+    - bionic
+    - focal
+  - name: Debian
+    versions:
+    - buster
   galaxy_tags:
     - aws
 dependencies:

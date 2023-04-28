@@ -1,6 +1,8 @@
 ---
 - name: Update apt cache.
-  apt: update_cache=yes cache_valid_time=3600
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
 - name: Install unzip in order to be able to install some archives
   apt:
     pkg:
@@ -253,9 +255,9 @@
   tags: aws_nuke
 - name: Determine whether python 3.6 for aws-sam-cli required specifically
   set_fact:
-    py_version: "{{ '3.6' if ( ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'
+    py_version: "{{ '3.6' if (ansible_distribution == 'Debian' and ansible_distribution_release == 'stretch'
      or ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
-     or ansible_distribution == 'Linux Mint' and ansible_distribution_major_version == '18' ) else '3' }}"
+     or ansible_distribution == 'Linux Mint' and ansible_distribution_major_version == '18') else '3' }}"
   tags: aws_sam_cli
 - name: Install aws-sam-cli
   include_role:
