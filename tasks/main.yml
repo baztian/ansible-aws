@@ -118,6 +118,10 @@
     dest: /usr/local/bin/assume-role.sh
     mode: 0755
     force: yes
+- name: Install fzf in order to have fuzzy search for sso profiles selection
+  apt:
+    pkg:
+      - fzf
 - name: Install file to be sourced for aws sso tooling
   get_url:
     url: '{{ sso_tooling_base_url }}/raw/_aws-sso.sh'
