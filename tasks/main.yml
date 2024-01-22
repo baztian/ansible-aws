@@ -112,60 +112,40 @@
     path: /etc/bash_completion.d/aws_completer
     regexp: '^complete -C "/opt/awscli/aws/dist/aws_completer" aws-vault$'
     line: complete -C "/opt/awscli/aws/dist/aws_completer" aws-vault
-- name: Check if saml2aws {{ saml2aws_version }} already installed
-  stat:
-    path: /opt/saml2aws-{{ saml2aws_version }}/saml2aws
-  register: saml2aws_directory
-  tags: saml2aws
-- name: Create saml2aws {{ saml2aws_version }} directory
-  file:
-    path: /opt/saml2aws-{{ saml2aws_version }}
-    state: directory
-    mode: 0755
-  tags: saml2aws
-- name: Download saml2aws {{ saml2aws_version }}
-  get_url:
-    url: https://github.com/Versent/saml2aws/releases/download/v{{ saml2aws_version }}/saml2aws_{{ saml2aws_version }}_linux_amd64.tar.gz
-    checksum: sha256:{{ saml2aws_sha256 }}
-    dest: /tmp/saml2aws-{{ saml2aws_version }}.tar.gz
-    mode: 0755
-  when: not saml2aws_directory.stat.exists
-  tags: saml2aws
-- name: Unarchive saml2aws {{ saml2aws_version }}
-  unarchive:
-    src: /tmp/saml2aws-{{ saml2aws_version }}.tar.gz
-    dest: /opt/saml2aws-{{ saml2aws_version }}
-    remote_src: yes
-  when: not saml2aws_directory.stat.exists
-  tags: saml2aws
-- name: Symlink default saml2aws version to saml2aws {{ saml2aws_version }}
-  file:
-    src: saml2aws-{{ saml2aws_version }}
-    dest: /opt/saml2aws
-    state: link
-  tags: saml2aws
-- name: Symlink saml2aws binary
-  file:
-    src: "/opt/saml2aws/saml2aws"
-    dest: "/usr/local/bin/saml2aws"
-    state: link
-  tags: saml2aws
-- name: Set default aws profile for saml2aws
-  lineinfile:
-    path: ~/.profile
-    regexp: '^export {{ item }}='
-    line: export {{ item }}=saml
-  with_items:
-    - AWS_DEFAULT_PROFILE
-    - AWS_PROFILE
-  become: no
-  tags: saml2aws
 - name: Install assume-role.sh
   get_url:
     url: '{{ assume_role_url }}'
     dest: /usr/local/bin/assume-role.sh
     mode: 0755
     force: yes
+- name: Install fzf in order to have fuzzy search for sso profiles selection
+  apt:
+    pkg:
+      - fzf
+- name: Install file to be sourced for aws sso tooling
+  get_url:
+    url: '{{ sso_tooling_base_url }}/raw/_aws-sso.sh'
+    dest: /usr/local/bin/_aws-sso.sh
+    mode: 0644
+    force: yes
+- name: Install list-sso-profiles for aws sso tooling
+  get_url:
+    url: '{{ sso_tooling_base_url }}/raw/aws-list-sso-profiles'
+    dest: /usr/local/bin/aws-list-sso-profiles
+    mode: 0755
+    force: yes
+- name: Setup bash completion for aws sso tooling
+  get_url:
+    url: '{{ sso_tooling_base_url }}/raw/aws_sso_completer'
+    dest: /etc/bash_completion.d/aws_sso_completer
+    mode: 0644
+    force: yes
+- name: Add aws sso alias
+  lineinfile:
+    path: ~/.bashrc
+    regexp: '^alias sso='
+    line: "alias sso='. _aws-sso.sh'"
+  become: no
 - name: Install terraform via asdf
   include_role:
     name: baztian.asdf
