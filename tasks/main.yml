@@ -143,8 +143,8 @@
 - name: Add aws sso alias
   lineinfile:
     path: ~/.bashrc
-    regexp: '^alias wssohereami='
-    line: "'. _aws-sso.sh'"
+    regexp: '^alias sso='
+    line: "alias sso='. _aws-sso.sh'"
   become: no
 - name: Install terraform via asdf
   include_role:
