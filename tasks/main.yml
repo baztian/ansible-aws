@@ -63,12 +63,28 @@
     deb: /tmp/session-manager-plugin.deb
     # allow for downgrade to avoid possible conflicts in GitHub Actions
     force: yes
-- name: Add dockstats alias
+- name: Remove whereami alias from ~/.bashrc used in former version of this role
   lineinfile:
     path: ~/.bashrc
     regexp: '^alias whereami='
-    line: "{% raw %}alias whereami='echo \"$(aws iam list-account-aliases --query \"AccountAliases\" --output text) => $(aws sts get-caller-identity --query \"join('\"'\"' => '\"'\"', [Account,Arn])\" --output text)\"'{% endraw %}" # noqa 204
-  become: no
+    state: absent
+- name: Add whereami function to ~/.bashrc
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      whereami() {
+          account_alias=$(aws iam list-account-aliases --query "AccountAliases" --output text 2>/dev/null)
+          if [ $? -ne 0 ]; then
+              echo "Failed to connect to AWS. Please check your AWS configuration and credentials." >&2
+              return 1
+          fi
+          bold=$(tput bold)
+          normal=$(tput sgr0)
+          printf "%s%s%s => " "$bold" "$account_alias" "$normal"
+          account_info=$(aws sts get-caller-identity --query "join(' => ', [Account,Arn])" --output text 2>/dev/null)
+          echo "$account_info"
+      }
+    marker: "# {mark} ANSIBLE MANAGED BLOCK whereami function"
 - name: Check if aws-vault {{ aws_vault_version }} already installed
   stat:
     path: /opt/aws-vault-{{ aws_vault_version }}/aws-vault
