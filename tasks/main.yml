@@ -303,6 +303,13 @@
     mode: 0644
     force: yes
   tags: send_sqs
+- name: Install sqs-list-filled-queues
+  include_role:
+    name: baztian.pip_venv
+  vars:
+      pkg: sqs-list-filled-queues
+      version: v0.2
+  tags: sqs_list_filled_queues
 - name: Check if NoSQL Workbench {{ nosql_workbench_version }} already installed
   stat:
     path: /opt/NoSQL%20Workbench-{{ nosql_workbench_version }}.AppImage
